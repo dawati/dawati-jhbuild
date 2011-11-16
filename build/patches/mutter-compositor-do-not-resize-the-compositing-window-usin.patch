@@ -1,0 +1,83 @@
+From dce4e697d0604c669f546c7c685b3cbacd67bb82 Mon Sep 17 00:00:00 2001
+From: Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>
+Date: Thu, 20 Oct 2011 13:39:46 +0100
+Subject: [PATCH] compositor: do not resize the compositing window using
+ clutter_actor_set_size
+
+When starting mutter with an external screen connected to your device,
+you might end up receiving ConfigureNotify events batched. In the
+following sequence :
+
+- ConfigureNotify of the root window 1024x768
+- ConfigureNotify of the compositing window 1024x768
+- ConfigureNotify of the root window 1920x1080
+
+In this sequence we receive an event from the root window giving the
+initial size of the screen, then the compositing window creating by
+mutter at the same size, and then another event giving an update of
+the screen size.
+
+Mutter processes the ConfigureNotify events coming from the root
+window by calling clutter_actor_set_size on the actor of the
+compositing window.
+
+The problem is, clutter_actor_set_size queue a relayout on the
+ClutterStage of the compositing window and the ConfigureNotify events
+coming from the compositing window are queued by Clutter to be
+processed during the event cycle. But because Clutter processes events
+before layouting, what we have here is a reordering of the
+events/set_size leading to setting the stage size of the composited
+window to 1024x768 instead of 1920x1080.
+
+Signed-off-by: Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>
+---
+ src/compositor/compositor.c |   19 ++++++++++++++++---
+ 1 files changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/src/compositor/compositor.c b/src/compositor/compositor.c
+index 46a7450..f7e078e 100644
+--- a/src/compositor/compositor.c
++++ b/src/compositor/compositor.c
+@@ -455,10 +455,14 @@ meta_compositor_manage_screen (MetaCompositor *compositor,
+   info->stage = clutter_stage_get_default ();
+ 
+   meta_screen_get_size (screen, &width, &height);
+-  clutter_actor_set_size (info->stage, width, height);
+ 
+   xwin = clutter_x11_get_stage_window (CLUTTER_STAGE (info->stage));
+ 
++  XResizeWindow (xdisplay,
++                 xwin,
++                 width,
++                 height);
++
+   event_mask = FocusChangeMask |
+                ExposureMask |
+                EnterWindowMask | LeaveWindowMask |
+@@ -958,12 +962,21 @@ meta_compositor_sync_screen_size (MetaCompositor  *compositor,
+ 				  guint		   width,
+ 				  guint		   height)
+ {
+-  MetaCompScreen *info = meta_screen_get_compositor_data (screen);
++  MetaDisplay    *display = meta_screen_get_display (screen);
++  MetaCompScreen *info    = meta_screen_get_compositor_data (screen);
++  Display        *xdisplay;
++  Window          xwin;
+ 
+   DEBUG_TRACE ("meta_compositor_sync_screen_size\n");
+   g_return_if_fail (info);
+ 
+-  clutter_actor_set_size (info->stage, width, height);
++  xdisplay = meta_display_get_xdisplay (display);
++  xwin = clutter_x11_get_stage_window (CLUTTER_STAGE (info->stage));
++
++  XResizeWindow (xdisplay,
++                 xwin,
++                 width,
++                 height);
+ 
+   meta_verbose ("Changed size for stage on screen %d to %dx%d\n",
+ 		meta_screen_get_screen_number (screen),
+-- 
+1.7.7
+

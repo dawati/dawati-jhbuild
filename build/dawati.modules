@@ -1,0 +1,45 @@
+<?xml version="1.0"?><!--*- mode: nxml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<!-- vim:set ts=2 expandtab: -->
+<moduleset>
+  <repository type="git" name="git.gnome.org"
+              href="git://git.gnome.org/" />
+  <repository type="git" name="github.com"
+              href="git://github.com/"/>
+
+  <include href="dawati-common.modules" />
+
+  <autotools id="cogl" autogenargs="--disable-introspection --enable-profile=yes">
+    <branch repo="git.gnome.org"
+            module="cogl"
+            revision="cogl-1.8"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <autotools id="clutter" autogenargs="--disable-introspection --enable-profile=yes">
+    <branch repo="git.gnome.org"
+            module="clutter"
+            revision="clutter-1.8"/>
+    <dependencies>
+      <dep package="cogl"/>
+    </dependencies>
+    <after>
+      <dep package="cairo"/>
+      <dep package="json-glib"/>
+    </after>
+  </autotools>
+
+  <!-- disable gtk widgets as it's both unneeded and would pull gtk into
+  the build to have the right gir file version -->
+  <autotools id="mx" autogenargs="--disable-introspection --disable-gtk-widgets">
+    <branch repo="github.com"
+            module="clutter-project/mx"
+            revision="master"/>
+    <dependencies>
+      <dep package="clutter"/>
+    </dependencies>
+  </autotools>
+
+</moduleset>

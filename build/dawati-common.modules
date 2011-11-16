@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?><!--*- mode: nxml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<!-- vim:set ts=2 expandtab: -->
+<moduleset>
+  <!-- tarball repositories -->
+  <repository type="tarball" name="download.gnome.org"
+              href="http://download.gnome.org/sources/" />
+
+  <!-- git repositories -->
+  <repository type="git" name="freedesktop.org"
+      href="git://anongit.freedesktop.org/"/>
+  <repository type="git" name="gstreamer"
+      href="git://anongit.freedesktop.org/gstreamer"/>
+  <repository type="git" name="git.gnome.org"
+      href="git://git.gnome.org"/>
+  <repository type="git" name="github.com"
+      href="git://github.com/"/>
+  <repository type="git" name="github.com/rib"
+      href="git://github.com/rib"/>
+
+  <!-- GNOME plaform -->
+
+  <autotools id="uprof">
+    <branch repo="github.com/rib"
+            module="rib/UProf"
+            revision="master" />
+  </autotools>
+
+  <autotools id="glib">
+    <pkg-config>glib-2.0.pc</pkg-config>
+    <branch module="glib/2.28/glib-2.28.8.tar.gz" version="2.28.8"
+            repo="download.gnome.org" />
+  </autotools>
+
+  <!-- Clutter -->
+
+  <autotools id="json-glib" autogenargs="--disable-introspection">
+    <pkg-config>json-glib-1.0.pc</pkg-config>
+    <branch module="json-glib/0.14/json-glib-0.14.0.tar.bz2" version="0.14.0"
+            repo="download.gnome.org" />
+    <dependencies>
+      <!-- <dep package="glib"/> -->
+    </dependencies>
+  </autotools>
+
+  <autotools id="clutter-gst" autogenargs="--disable-introspection">
+    <branch repo="git.gnome.org"
+            module="clutter-gst"
+            revision="master"/>
+    <dependencies>
+      <dep package="clutter"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="clutter-gtk" autogenargs="--disable-introspection">
+    <branch repo="git.gnome.org"
+            module="clutter-gtk"
+            revision="clutter-gtk-0.12"/>
+    <dependencies>
+      <dep package="clutter"/>
+    </dependencies>
+  </autotools>
+
+  <!-- Shell -->
+
+  <autotools id="mutter" autogenargs="--disable-introspection --enable-compile-warnings=no">
+    <branch module="mutter/2.31/mutter-2.31.5_1.1.tar.bz2" version="2.31.5"
+            repo="download.gnome.org" />
+    <patches>
+      <patch file="mutter-compositor-do-not-resize-the-compositing-window-usin.patch" strip="1" />
+      <patch file="mutter-Don-t-lose-application-redraws.patch" strip="1" />
+    </patches>
+    <dependencies>
+      <dep package="clutter"/>
+    </dependencies>
+  </autotools>
+
+  <!-- applications,datetime,devices,myzone,networks,people,power-icon,status,web,zones -->
+  <autotools id="mutter-dawati" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=status,devices,power-icon,networks --with-online=always">
+    <branch repo="github.com"
+            module="dawati/mutter-dawati"
+            revision="master"/>
+    <dependencies>
+      <dep package="clutter"/>
+      <dep package="mx"/>
+      <dep package="mutter"/>
+    </dependencies>
+  </autotools>
+
+  <!-- middleware stuff -->
+
+  <autotools id="upower" autogenargs="--disable-introspection --disable-strict">
+    <branch repo="freedesktop.org"
+            module="upower"
+            tag="UPOWER_0_9_5"/>
+  </autotools>
+
+  <autotools id="anerley" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/anerley"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+    </dependencies>
+  </autotools>
+
+  <!-- panels -->
+
+  <autotools id="panel-applications" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-applications"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+      <dep package="mutter-dawati"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="panel-myzone" autogenargs="--disable-capplet">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-myzone"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+      <dep package="mutter-dawati"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="panel-people" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-people"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+      <dep package="mutter-dawati"/>
+      <dep package="anerley"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="panel-status" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-status"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+      <dep package="mutter-dawati"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="panel-devices" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-devices"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+      <dep package="mutter-dawati"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="panel-datetime" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-datetime"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+      <dep package="mutter-dawati"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="panel-zones" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-zones"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+      <dep package="clutter-gtk"/>
+      <dep package="mutter-dawati"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="panel-networks" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-networks"
+            revision="master"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <autotools id="panel-web" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-panel-web"
+            revision="master"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <!-- other stuff -->
+
+  <autotools id="help" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-help"
+            revision="master"/>
+    <dependencies>
+      <dep package="mutter-dawati"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="menus" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-menus"
+            revision="master"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <autotools id="sound-theme" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-sound-theme"
+            revision="master"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <!-- meta modules -->
+
+  <metamodule id="meta-dawati">
+    <dependencies>
+      <dep package="uprof"/>
+      <dep package="mutter-dawati"/>
+    </dependencies>
+  </metamodule>
+</moduleset>
