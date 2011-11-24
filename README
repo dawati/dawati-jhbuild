@@ -2,7 +2,7 @@ Dawati - JHBuild
 ===============================================================================
 
 jhbuid-dawati is a repository containing scripts and a JHBuild moduleset for
-building and developing the MediaExplorer User Shell and related libraries.
+building and developing the Dawati Shell User Shell and related libraries.
 
 Initialization
 -------------------------------------------------------------------------------
@@ -28,10 +28,10 @@ This command will install:
   - $HOME/.jhbuildrc-dawati-custom - a jhbuild configuration file for
                                   customisations of the default settings
 
-Building MediaExplorer
+Building Dawati Shell
 -------------------------------------------------------------------------------
 
-To build the whole MediaExplorer UI:
+To build the whole Dawati Shell UI:
 
   jhbuild-dawati build
 
@@ -40,29 +40,17 @@ This will also take care of the dependencies.
 The modules will be downloaded under $HOME/dawati/source.
 The modules will be installed under $HOME/dawati/install
 
-Running MediaExplorer
+Running Dawati Shell
 -------------------------------------------------------------------------------
-
-To run MediaExplorer:
-
-  cd $HOME/dawati/install/bin
 
 Start a jhbuild shell:
 
-  jhbuild-dawati shell
-
-Start Tracker (the version installed by jhbuild):
-
-  ./tracker-control -s
-
-Then start MediaExplorer:
-
-  ./media-explorer
+  mutter --replace --mutter-plugins=dawati-netbook
 
 Common issues
 -------------------------------------------------------------------------------
 
-Q: Why jhbuild can't find the MediaExplorer modules file?
+Q: Why jhbuild can't find the Dawati Shell modules file?
 A: The default modules file is expected to be at:
 
   ~/src/jhbuild-dawati/build/dawati.modules

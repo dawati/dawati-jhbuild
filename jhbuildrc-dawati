@@ -1,6 +1,6 @@
 # -*- mode: python -*-
 #
-# jhbuildrc for building MediaExplorer. Customizations shuld be done in
+# jhbuildrc for building Dawati Shell. Customizations shuld be done in
 # ~/.jhbuildrc-custom
 #
 # Copyright (C) 2009, 2010 Intel Corp.
