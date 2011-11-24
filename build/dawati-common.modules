@@ -81,7 +81,7 @@
   <!-- applications,datetime,devices,myzone,networks,people,power-icon,status,web,zones -->
   <autotools id="dawati-shell" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=status,devices,power-icon,networks --with-online=always">
     <branch repo="github.com"
-            module="dawati/mutter-dawati"
+            module="dawati/dawati-shell"
             revision="master"/>
     <dependencies>
       <dep package="clutter"/>
@@ -140,7 +140,7 @@
   <metamodule id="meta-dawati">
     <dependencies>
       <dep package="uprof"/>
-      <dep package="mutter-dawati"/>
+      <dep package="dawati-shell"/>
     </dependencies>
   </metamodule>
 </moduleset>
