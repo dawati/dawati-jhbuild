@@ -79,15 +79,17 @@
   </autotools>
 
   <!-- applications,datetime,devices,myzone,networks,people,power-icon,status,web,zones -->
-  <autotools id="dawati-shell" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=status,devices,power-icon,networks --with-online=always">
+  <autotools id="dawati-shell" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=status,devices,power-icon,networks,zones --with-online=always">
     <branch repo="github.com"
             module="dawati/dawati-shell"
             revision="master"/>
     <dependencies>
       <dep package="clutter"/>
+      <dep package="clutter-gtk"/>
       <dep package="mx"/>
       <dep package="mutter"/>
       <dep package="anerley"/>
+      <dep package="upower"/>
     </dependencies>
   </autotools>
 
@@ -115,7 +117,7 @@
             module="dawati/dawati-help"
             revision="master"/>
     <dependencies>
-      <dep package="mutter-dawati"/>
+      <dep package="dawati-shell"/>
     </dependencies>
   </autotools>
 
