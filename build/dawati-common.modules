@@ -56,7 +56,7 @@
   <autotools id="clutter-gtk" autogenargs="--disable-introspection">
     <branch repo="git.gnome.org"
             module="clutter-gtk"
-            revision="clutter-gtk-0.12"/>
+            revision="clutter-gtk-1.0"/>
     <dependencies>
       <dep package="clutter"/>
     </dependencies>
@@ -65,8 +65,9 @@
   <!-- Shell -->
 
   <autotools id="mutter" autogenargs="--disable-introspection --enable-compile-warnings=no">
-    <branch module="meego-netbook-ux/mutter" version="master"
-            repo="gitorious.org" />
+    <branch module="mutter"
+            repo="git.gnome.org"
+            revision="gnome-3-2"/>
     <patches>
       <patch file="mutter-compositor-do-not-resize-the-compositing-window-usin.patch" strip="1" />
       <patch file="mutter-Don-t-lose-application-redraws.patch" strip="1" />
@@ -77,10 +78,10 @@
   </autotools>
 
   <!-- applications,datetime,devices,myzone,networks,people,power-icon,status,web,zones -->
-  <autotools id="shell" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=status,devices,power-icon,networks,zones --with-online=always">
+  <autotools id="shell" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=applications,datetime,myzone,people,status,web,zones --with-online=always">
     <branch repo="github.com"
             module="dawati/dawati-shell"
-            revision="master"/>
+            revision="gtk3"/>
     <dependencies>
       <dep package="clutter"/>
       <dep package="clutter-gtk"/>
@@ -115,7 +116,7 @@
             module="dawati/dawati-help"
             revision="master"/>
     <dependencies>
-      <dep package="dawati-shell"/>
+      <dep package="shell"/>
     </dependencies>
   </autotools>
 
