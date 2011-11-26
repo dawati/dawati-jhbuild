@@ -137,7 +137,7 @@
     </dependencies>
   </autotools>
 
-  <autotools id="artwork" autogenargs="">
+  <autotools id="artwork" autogen-sh="autoreconf" autogenargs="">
     <branch repo="github.com"
             module="dawati/dawati-artwork"
             revision="master"/>
