@@ -137,12 +137,21 @@
     </dependencies>
   </autotools>
 
+  <autotools id="artwork" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-artwork"
+            revision="master"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
   <!-- meta modules -->
 
   <metamodule id="meta-dawati">
     <dependencies>
       <dep package="uprof"/>
       <dep package="dawati-shell"/>
+      <dep package="artwork"/>
     </dependencies>
   </metamodule>
 </moduleset>
