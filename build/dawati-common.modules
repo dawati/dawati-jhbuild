@@ -78,7 +78,7 @@
   </autotools>
 
   <!-- applications,datetime,devices,myzone,networks,people,power-icon,status,web,zones -->
-  <autotools id="shell" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=applications,datetime,myzone,people,status,web,zones --with-online=always">
+  <autotools id="shell" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=applications,datetime,myzone,networks,people,status,web,zones --with-online=always">
     <branch repo="github.com"
             module="dawati/dawati-shell"
             revision="gtk3"/>
