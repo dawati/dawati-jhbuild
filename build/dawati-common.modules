@@ -16,15 +16,13 @@
               href="git://git.gnome.org"/>
   <repository type="git" name="github.com"
               href="git://github.com/"/>
-  <repository type="git" name="github.com/rib"
-              href="git://github.com/rib"/>
   <repository type="git" name="gitorious.org"
               href="git://gitorious.org/"/>
 
   <!-- GNOME plaform -->
 
   <autotools id="uprof">
-    <branch repo="github.com/rib"
+    <branch repo="github.com"
             module="rib/UProf"
             revision="master" />
   </autotools>
