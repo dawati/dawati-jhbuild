@@ -22,7 +22,7 @@
 # Only rebuild modules that have changed
 build_policy = 'updated'
 
-moduleset = os.path.expanduser('~/src/jhbuild-dawati/build/dawati.modules')
+moduleset = os.path.expanduser('~/src/dawati-jhbuild/build/dawati.modules')
 
 modules = [ 'meta-dawati' ]
 
