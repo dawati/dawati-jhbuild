@@ -101,7 +101,7 @@
   <autotools id="shell" autogenargs="--disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=myzone,applications,datetime,music,people,status,web,zones --with-online=always --enable-introspection">
     <branch repo="github.com"
             module="dawati/dawati-shell"
-            revision="gtk3"/>
+            revision="master"/>
     <dependencies>
       <dep package="clutter"/>
       <dep package="clutter-gtk"/>
