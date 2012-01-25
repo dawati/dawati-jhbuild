@@ -108,7 +108,6 @@
       <dep package="mx"/>
       <dep package="mutter"/>
       <dep package="anerley"/>
-      <dep package="upower"/>
     </dependencies>
   </autotools>
 
