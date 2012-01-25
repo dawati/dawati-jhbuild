@@ -29,22 +29,41 @@
 
   <autotools id="glib">
     <pkg-config>glib-2.0.pc</pkg-config>
-    <branch module="glib/2.28/glib-2.28.8.tar.gz" version="2.28.8"
+    <branch module="glib/2.30/glib-2.30.2.tar.bz2" version="2.30.2"
             repo="download.gnome.org" />
   </autotools>
 
-  <!-- Clutter -->
-
-  <autotools id="json-glib" autogenargs="--disable-introspection">
-    <pkg-config>json-glib-1.0.pc</pkg-config>
-    <branch module="json-glib/0.14/json-glib-0.14.0.tar.bz2" version="0.14.0"
-            repo="download.gnome.org" />
+  <autotools id="glib-controller" autogenargs="">
+    <branch module="glib-controller"
+            repo="git.gnome.org"
+            revision="master" />
     <dependencies>
-      <!-- <dep package="glib"/> -->
+      <dep package="glib"/>
     </dependencies>
   </autotools>
 
-  <autotools id="clutter-gst" autogenargs="--disable-introspection">
+  <autotools id="gtk" autogenargs="">
+    <branch repo="git.gnome.org"
+            module="gtk+"
+            revision="gtk-3-2"/>
+    <dependencies>
+      <dep package="glib"/>
+    </dependencies>
+  </autotools>
+
+
+  <!-- Clutter -->
+
+  <autotools id="json-glib" autogenargs="">
+    <pkg-config>json-glib-1.0.pc</pkg-config>
+    <branch module="json-glib/0.14/json-glib-0.14.2.tar.bz2" version="0.14.2"
+            repo="download.gnome.org" />
+    <dependencies>
+      <dep package="glib"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="clutter-gst" autogenargs="">
     <branch repo="git.gnome.org"
             module="clutter-gst"
             revision="master"/>
@@ -53,18 +72,19 @@
     </dependencies>
   </autotools>
 
-  <autotools id="clutter-gtk" autogenargs="--disable-introspection">
+  <autotools id="clutter-gtk" autogenargs="">
     <branch repo="git.gnome.org"
             module="clutter-gtk"
             revision="clutter-gtk-1.0"/>
     <dependencies>
       <dep package="clutter"/>
+      <dep package="gtk"/>
     </dependencies>
   </autotools>
 
   <!-- Shell -->
 
-  <autotools id="mutter" autogenargs="--disable-introspection --enable-compile-warnings=no">
+  <autotools id="mutter" autogenargs="--enable-compile-warnings=no">
     <branch module="mutter"
             repo="git.gnome.org"
             revision="gnome-3-2"/>
@@ -78,7 +98,7 @@
   </autotools>
 
   <!-- applications,datetime,devices,myzone,networks,people,power-icon,status,web,zones -->
-  <autotools id="shell" autogenargs="--disable-introspection --disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=applications,datetime,myzone,networks,people,status,web,zones --with-online=always">
+  <autotools id="shell" autogenargs="--disable-capplet --enable-gtk-doc=yes --enable-gtk-doc-html --with-panels=myzone,applications,datetime,music,people,status,web,zones --with-online=always --enable-introspection">
     <branch repo="github.com"
             module="dawati/dawati-shell"
             revision="gtk3"/>
@@ -94,10 +114,10 @@
 
   <!-- middleware stuff -->
 
-  <autotools id="upower" autogenargs="--disable-introspection --disable-strict">
-    <branch repo="freedesktop.org"
-            module="upower"
-            tag="UPOWER_0_9_5"/>
+  <autotools id="libzeitgeist" autogenargs="">
+    <branch repo="github.com"
+            module="libzeitgeist"
+            tag="master"/>
   </autotools>
 
   <autotools id="anerley" autogenargs="">

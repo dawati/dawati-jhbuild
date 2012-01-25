@@ -10,7 +10,7 @@
 
   <include href="dawati-common.modules" />
 
-  <autotools id="cogl" autogenargs="--disable-introspection --enable-profile=yes">
+  <autotools id="cogl" autogenargs="--enable-profile=yes">
     <branch repo="git.gnome.org"
             module="cogl"
             revision="cogl-1.8"/>
@@ -18,22 +18,22 @@
     </dependencies>
   </autotools>
 
-  <autotools id="clutter" autogenargs="--disable-introspection --enable-profile=yes">
+  <autotools id="clutter" autogenargs="--enable-profile=yes">
     <branch repo="git.gnome.org"
             module="clutter"
             revision="clutter-1.8"/>
     <dependencies>
       <dep package="cogl"/>
+      <dep package="json-glib"/>
     </dependencies>
     <after>
       <dep package="cairo"/>
-      <dep package="json-glib"/>
     </after>
   </autotools>
 
   <!-- disable gtk widgets as it's both unneeded and would pull gtk into
   the build to have the right gir file version -->
-  <autotools id="mx" autogenargs="--disable-introspection --disable-gtk-widgets">
+  <autotools id="mx" autogenargs="--disable-gtk-widgets">
     <branch repo="github.com"
             module="clutter-project/mx"
             revision="master"/>
