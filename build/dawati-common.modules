@@ -107,7 +107,6 @@
       <dep package="clutter-gtk"/>
       <dep package="mx"/>
       <dep package="mutter"/>
-      <dep package="anerley"/>
     </dependencies>
   </autotools>
 
@@ -117,15 +116,6 @@
     <branch repo="github.com"
             module="libzeitgeist"
             tag="master"/>
-  </autotools>
-
-  <autotools id="anerley" autogenargs="">
-    <branch repo="github.com"
-            module="dawati/anerley"
-            revision="master"/>
-    <dependencies>
-      <dep package="mx"/>
-    </dependencies>
   </autotools>
 
   <!-- other stuff -->
