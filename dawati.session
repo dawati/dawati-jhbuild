@@ -1,0 +1,3 @@
+[GNOME Session]
+Name=Dawati
+RequiredComponents=dawati-shell;gnome-settings-daemon;

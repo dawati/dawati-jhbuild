@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Dawati
+Exec=jhbuild-dawati run mutter --mutter-plugins dawati-netbook
+Type=Application
+Terminal=false

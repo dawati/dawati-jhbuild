@@ -1,6 +1,7 @@
 prefix = $(HOME)
 bindir = $(prefix)/bin
-sharedir = $(prefix)/share
+datadir = $(HOME)/.local/share
+confdir = $(HOME)/.config
 
 RM = rm -f
 TAR = tar
@@ -25,3 +26,8 @@ install:
 	else \
 		$(INSTALL) -m 644 jhbuildrc-dawati-custom '$(DESTDIR)$(HOME)/.jhbuildrc-dawati-custom' ; \
 	fi
+
+install-session:
+	$(INSTALL) -m 644 dawati-shell.desktop '$(DESTDIR)$(datadir)/applications/dawati-shell.desktop'
+	$(INSTALL) -m 644 dawati.session '$(DESTDIR)$(confdir)/gnome-session/sessions/dawati.session'
+	$(INSTALL) -m 644 xsessions/dawati.desktop '/usr/share/xsessions/dawati.session'
