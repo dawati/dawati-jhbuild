@@ -3,43 +3,102 @@
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <!-- vim:set ts=2 expandtab: -->
 <moduleset>
+
+  <!-- tarball repositories -->
+  <repository type="tarball" name="download.gnome.org"
+              href="http://download.gnome.org/sources/" />
+
+  <!-- git repositories -->
   <repository type="git" name="git.gnome.org"
-              href="git://git.gnome.org/" />
+              href="git://git.gnome.org"/>
   <repository type="git" name="github.com"
               href="git://github.com/"/>
 
-  <include href="dawati-common.modules" />
+  <!-- extra dependencies -->
 
-  <autotools id="cogl" autogenargs="--enable-profile=yes">
-    <branch repo="git.gnome.org"
-            module="cogl"
-            revision="cogl-1.8"/>
-    <dependencies>
-    </dependencies>
-  </autotools>
+  <autotools id="folks">
+    <pkg-config>folks.pc</pkg-config>
+    <branch module="folks/0.6/folks-0.6.6.tar.xz" version="0.6.6"
+            repo="download.gnome.org" />
+  </autotools>  
 
-  <autotools id="clutter" autogenargs="--enable-profile=yes">
-    <branch repo="git.gnome.org"
-            module="clutter"
-            revision="clutter-1.8"/>
-    <dependencies>
-      <dep package="cogl"/>
-      <dep package="json-glib"/>
-    </dependencies>
-    <after>
-      <dep package="cairo"/>
-    </after>
-  </autotools>
-
-  <!-- disable gtk widgets as it's both unneeded and would pull gtk into
-  the build to have the right gir file version -->
-  <autotools id="mx" autogenargs="--disable-gtk-widgets">
+  <autotools id="mx">
     <branch repo="github.com"
             module="clutter-project/mx"
             revision="master"/>
     <dependencies>
-      <dep package="clutter"/>
     </dependencies>
   </autotools>
+
+
+  <!-- Shell -->
+
+  <autotools id="mutter" autogenargs="--enable-compile-warnings=no">
+    <branch module="mutter"
+            repo="git.gnome.org"
+            revision="gnome-3-2"/>
+    <patches>
+      <patch file="mutter-compositor-do-not-resize-the-compositing-window-usin.patch" strip="1" />
+      <patch file="mutter-Don-t-lose-application-redraws.patch" strip="1" />
+    </patches>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <!-- applications,datetime,devices,myzone,networks,people,power-icon,status,web,zones -->
+  <autotools id="shell" autogenargs="--disable-capplet --with-panels=myzone,applications,datetime,music,people,status,web,zones --with-online=always">
+    <branch repo="github.com"
+            module="dawati/dawati-shell"
+            revision="master"/>
+    <dependencies>
+      <dep package="mx"/>
+      <dep package="mutter"/>
+      <dep package="folks"/>
+    </dependencies>
+  </autotools>
+
+  <!-- other stuff -->
+
+  <autotools id="help" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-help"
+            revision="master"/>
+    <dependencies>
+      <dep package="shell"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="menus" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-menus"
+            revision="master"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <autotools id="sound-theme" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-sound-theme"
+            revision="master"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <autotools id="artwork" autogen-sh="autoreconf" autogenargs="">
+    <branch repo="github.com"
+            module="dawati/dawati-artwork"
+            revision="master"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
+
+  <!-- meta modules -->
+
+  <metamodule id="meta-dawati">
+    <dependencies>
+      <dep package="shell"/>
+      <dep package="artwork"/>
+    </dependencies>
+  </metamodule>
 
 </moduleset>
