@@ -18,11 +18,26 @@
 
   <!-- extra dependencies -->
 
+  <autotools id="glib">
+    <branch module="glib"
+            repo="git.gnome.org"
+            revision="2.32.0" />
+  </autotools>
+
+  <autotools id="gjs">
+    <branch module="gjs"
+            repo="git.gnome.org"
+            revision="master" />
+    <dependencies>
+      <dep package="glib"/>
+    </dependencies>
+  </autotools>
+
   <autotools id="folks">
     <pkg-config>folks.pc</pkg-config>
     <branch module="folks/0.6/folks-0.6.6.tar.xz" version="0.6.6"
             repo="download.gnome.org" />
-  </autotools>  
+  </autotools>
 
   <autotools id="mx">
     <branch repo="github.com"
